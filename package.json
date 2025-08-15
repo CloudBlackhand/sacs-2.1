@@ -4,9 +4,12 @@
   "description": "Sistema de Aproximação Cliente Suporte - WhatsApp Empresarial 2.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd backend/node && npm start",
+    "start": "concurrently -k -n NODE,PY \"cd backend/node && npm start\" \"cd backend/python && bash run_py.sh\"",
     "dev": "cd backend/node && npm run dev",
     "build": "echo 'No build step necessary'"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.0"
   },
   "keywords": ["whatsapp", "business", "automation", "customer-support", "excel"],
   "author": "CloudBlackhand",
