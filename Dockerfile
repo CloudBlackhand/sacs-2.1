@@ -13,11 +13,12 @@ COPY . .
 RUN npm install || true
 RUN cd backend/node && npm install || true
 
-# Instala dependências Python
-RUN pip3 install -r backend/python/requirements.txt || true
+# Instala dependências Python (com --no-cache-dir para evitar problemas de memória)
+RUN pip3 install --no-cache-dir --upgrade pip
+RUN pip3 install --no-cache-dir -r backend/python/requirements.txt
 
-# Expõe a porta padrão do Node (ajuste se necessário)
-EXPOSE 3000
+# Expõe as portas padrão do Node e do Python
+EXPOSE 3000 8001
 
 # Inicia ambos os servidores (Node e Python)
 CMD ["npx", "concurrently", "-k", "-n", "NODE,PY", "cd backend/node && npm start", "cd backend/python && bash run_py.sh"]
