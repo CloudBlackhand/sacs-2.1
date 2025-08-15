@@ -1,10 +1,13 @@
+# Node
 node_modules/
-node_modules/
+**/node_modules/
 *.log
+*.tmp
 backend/node/node_modules/
-backend/node/scripts/
 backend/node/.local-chromium/
+backend/node/src/services/whatsapp.js.session/
 backend/.wwebjs_auth/
 .DS_Store
+uploads/
 .env
 
