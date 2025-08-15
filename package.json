@@ -1,0 +1,15 @@
+{
+  "name": "sacs",
+  "version": "2.0.0",
+  "description": "Sistema de Aproximação Cliente Suporte - WhatsApp Empresarial 2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd backend/node && npm start",
+    "dev": "cd backend/node && npm run dev",
+    "build": "cd backend/node && npm run build"
+  },
+  "keywords": ["whatsapp", "business", "automation", "customer-support", "excel"],
+  "author": "CloudBlackhand",
+  "license": "MIT"
+}

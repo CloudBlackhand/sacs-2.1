@@ -1,0 +1,6 @@
+2025/08/13-16:03:18.311 e242 Reusing MANIFEST /home/cloud/Área de trabalho/SACS/sacs/backend/.wwebjs_auth/session/Default/Local Storage/leveldb/MANIFEST-000001
+2025/08/13-16:03:18.382 e242 Recovering log #3
+2025/08/13-16:03:18.385 e242 Reusing old log /home/cloud/Área de trabalho/SACS/sacs/backend/.wwebjs_auth/session/Default/Local Storage/leveldb/000003.log 
+2025/08/14-14:17:39.759 e241 Level-0 table #5: started
+2025/08/14-14:17:39.765 e241 Level-0 table #5: 20744 bytes OK
+2025/08/14-14:17:39.770 e241 Delete type=0 #3
