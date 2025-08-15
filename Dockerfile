@@ -13,9 +13,9 @@ COPY . .
 RUN npm install || true
 RUN cd backend/node && npm install || true
 
-# Instala dependências Python (com --no-cache-dir para evitar problemas de memória)
-RUN pip3 install --no-cache-dir --upgrade pip
-RUN pip3 install --no-cache-dir -r backend/python/requirements.txt
+# Instala dependências Python (com --break-system-packages para evitar erro de ambiente gerenciado)
+RUN pip3 install --break-system-packages --no-cache-dir --upgrade pip
+RUN pip3 install --break-system-packages --no-cache-dir -r backend/python/requirements.txt
 
 # Expõe as portas padrão do Node e do Python
 EXPOSE 3000 8001
