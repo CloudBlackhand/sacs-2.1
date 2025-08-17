@@ -1,17 +1,24 @@
 {
-  "name": "sacs",
-  "version": "2.0.0",
-  "description": "Sistema de Aproximação Cliente Suporte - WhatsApp Empresarial 2.0",
+  "name": "sacs-simplified",
+  "version": "2.1.0",
+  "description": "Sistema de Aproximação Cliente Suporte - Versão Simplificada",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently -k -n NODE,PY \"cd backend/node && npm start\" \"cd backend/python && bash run_py.sh\"",
-    "dev": "cd backend/node && npm run dev",
-    "build": "echo 'No build step necessary'"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
-    "concurrently": "^9.2.0"
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1"
   },
-  "keywords": ["whatsapp", "business", "automation", "customer-support", "excel"],
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["whatsapp", "customer-support", "nodejs"],
   "author": "CloudBlackhand",
   "license": "MIT"
 }

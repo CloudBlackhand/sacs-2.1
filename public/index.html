@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SACS 2.1 - Sistema de Atendimento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="container">
+                <h1>📱 SACS 2.1</h1>
+                <span class="status" id="status">🟢 Online</span>
+            </div>
+        </header>
+
+        <nav class="nav">
+            <div class="container">
+                <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+                <button class="nav-btn" data-tab="messages">💬 Mensagens</button>
+                <button class="nav-btn" data-tab="excel">📈 Excel</button>
+                <button class="nav-btn" data-tab="config">⚙️ Configurações</button>
+            </div>
+        </nav>
+
+        <main class="main container">
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>📨 Mensagens Enviadas</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👥 Contatos</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>📊 Taxa de Resposta</h3>
+                        <p class="stat-number">0%</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🔄 Status Sistema</h3>
+                        <p class="stat-text">Operacional</p>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <h3>Ações Rápidas</h3>
+                    <button class="btn btn-primary" onclick="testConnection()">🔍 Testar Conexão</button>
+                    <button class="btn btn-secondary" onclick="checkHealth()">💚 Verificar Saúde</button>
+                </div>
+            </div>
+
+            <!-- Messages Tab -->
+            <div class="tab-content" id="messages">
+                <h2>Enviar Mensagem</h2>
+                <div class="message-form">
+                    <div class="form-group">
+                        <label>📱 Número WhatsApp:</label>
+                        <input type="text" id="phoneNumber" placeholder="5511999999999">
+                    </div>
+                    <div class="form-group">
+                        <label>💬 Mensagem:</label>
+                        <textarea id="messageText" rows="4" placeholder="Digite sua mensagem..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="sendMessage()">📤 Enviar Mensagem</button>
+                </div>
+                
+                <div class="sentiment-test">
+                    <h3>Teste de Análise de Sentimento</h3>
+                    <div class="form-group">
+                        <input type="text" id="sentimentText" placeholder="Digite um texto para analisar...">
+                        <button class="btn btn-secondary" onclick="analyzeSentiment()">🔍 Analisar</button>
+                    </div>
+                    <div id="sentimentResult"></div>
+                </div>
+            </div>
+
+            <!-- Excel Tab -->
+            <div class="tab-content" id="excel">
+                <h2>Processamento Excel</h2>
+                <div class="upload-area">
+                    <div class="upload-box">
+                        <p>📁 Arraste um arquivo Excel aqui ou clique para selecionar</p>
+                        <input type="file" id="excelFile" accept=".xlsx,.xls" style="display:none">
+                        <button class="btn btn-primary" onclick="document.getElementById('excelFile').click()">
+                            Selecionar Arquivo
+                        </button>
+                    </div>
+                </div>
+                <div id="excelResult"></div>
+            </div>
+
+            <!-- Config Tab -->
+            <div class="tab-content" id="config">
+                <h2>Configurações</h2>
+                <div class="config-section">
+                    <h3>🔗 WhatsApp</h3>
+                    <p>Status: <span id="whatsappStatus">Desconectado</span></p>
+                    <button class="btn btn-primary" onclick="checkWhatsApp()">Verificar Status</button>
+                </div>
+                
+                <div class="config-section">
+                    <h3>🌐 API</h3>
+                    <p>Endpoint: <span id="apiEndpoint"></span></p>
+                    <p>Versão: 2.1.0</p>
+                </div>
+                
+                <div class="config-section">
+                    <h3>ℹ️ Sobre</h3>
+                    <p>SACS - Sistema de Aproximação Cliente Suporte</p>
+                    <p>Versão simplificada para Railway</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 SACS 2.1 - CloudBlackhand</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
