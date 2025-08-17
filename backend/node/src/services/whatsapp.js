@@ -11,8 +11,27 @@ let client = null;
 let latestQr = null;
 let isReady = false;
 
+// Verifica se WhatsApp está desabilitado
+const isWhatsAppDisabled = process.env.DISABLE_WHATSAPP === '1' || process.env.DISABLE_WHATSAPP === 'true';
+
 function getClientInstance() {
   if (client) return client;
+  
+  // Se WhatsApp estiver desabilitado, retorna cliente mock
+  if (isWhatsAppDisabled) {
+    logger.info('WhatsApp desabilitado (modo desenvolvimento)');
+    isReady = true;
+    return {
+      initialize: () => Promise.resolve(),
+      sendMessage: (to, msg) => {
+        logger.info(`[MOCK] Enviando mensagem para ${to}: ${msg}`);
+        return Promise.resolve({ id: 'mock-' + Date.now() });
+      },
+      getChats: () => Promise.resolve([]),
+      getChatById: () => Promise.resolve({ fetchMessages: () => Promise.resolve([]) }),
+    };
+  }
+
   const puppeteerConfig = {
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   };
@@ -102,14 +121,20 @@ function getClientInstance() {
 }
 
 function getQrCodeDataUrl() {
+  if (isWhatsAppDisabled) return null;
   return latestQr;
 }
 
 function getIsReady() {
+  if (isWhatsAppDisabled) return true;
   return isReady;
 }
 
 async function sendMessageToNumber(numberWithCountryCode, message) {
+  if (isWhatsAppDisabled) {
+    logger.info(`[MOCK] Enviando para ${numberWithCountryCode}: ${message}`);
+    return { id: 'mock-' + Date.now() };
+  }
   const cli = getClientInstance();
   if (!isReady) throw new Error('Cliente WhatsApp não está pronto');
   const chatId = numberWithCountryCode.endsWith('@c.us')
@@ -119,6 +144,10 @@ async function sendMessageToNumber(numberWithCountryCode, message) {
 }
 
 async function sendMediaToNumber(numberOrChatId, filePath, caption) {
+  if (isWhatsAppDisabled) {
+    logger.info(`[MOCK] Enviando mídia para ${numberOrChatId}: ${filePath}`);
+    return { id: 'mock-media-' + Date.now() };
+  }
   const cli = getClientInstance();
   if (!isReady) throw new Error('Cliente WhatsApp não está pronto');
   const chatId = numberOrChatId.endsWith('@c.us')

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "Dockerfile"
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3,
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 30
+  },
+  "envVars": {
+    "NODE_ENV": "production",
+    "PYTHON_SERVICE_URL": "http://127.0.0.1:8001",
+    "SESSION_PATH": "/data/.wwebjs_auth",
+    "CHROME_PATH": "/usr/bin/google-chrome-stable"
+  }
+}
