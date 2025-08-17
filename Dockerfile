@@ -30,8 +30,9 @@ COPY . .
 # Torna o script executável
 RUN chmod +x start.sh
 
-# Expõe as portas
-EXPOSE 3000 8001
+# Railway vai definir PORT dinamicamente
+# Expõe apenas a porta principal (Node.js serve tudo)
+EXPOSE ${PORT:-3000}
 
 # Usa o script de inicialização
 CMD ["./start.sh"]
