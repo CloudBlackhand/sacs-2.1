@@ -1,24 +1,37 @@
 # Dockerfile para rodar Node.js e Python juntos no Railway
-FROM node:20
+FROM node:20-slim
 
 # Instala Python, pip e utilitários necessários
-RUN apt-get update && apt-get install -y python3 python3-pip procps
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    bash \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copia todos os arquivos do projeto
-COPY . .
+# Copia arquivos de dependências primeiro (melhor cache)
+COPY package*.json ./
+COPY backend/node/package*.json ./backend/node/
+COPY backend/python/requirements.txt ./backend/python/
 
-# Instala dependências Node.js na raiz e no backend/node
-RUN npm install || true
-RUN cd backend/node && npm install || true
+# Instala dependências Node.js
+RUN npm install --omit=dev || true
+RUN cd backend/node && npm install --omit=dev || true
 
-# Instala dependências Python (com --break-system-packages para evitar erro de ambiente gerenciado)
+# Instala dependências Python
 RUN pip3 install --break-system-packages --no-cache-dir --upgrade pip
 RUN pip3 install --break-system-packages --no-cache-dir -r backend/python/requirements.txt
 
-# Expõe as portas padrão do Node e do Python
+# Copia o resto do código
+COPY . .
+
+# Torna o script executável
+RUN chmod +x start.sh
+
+# Expõe as portas
 EXPOSE 3000 8001
 
-# Inicia ambos os servidores (Node e Python)
-CMD ["npx", "concurrently", "-k", "-n", "NODE,PY", "cd backend/node && npm start", "cd backend/python && bash run_py.sh"]
+# Usa o script de inicialização
+CMD ["./start.sh"]
